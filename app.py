@@ -120,6 +120,26 @@ def main():
     pg.display.set_caption('Monkey Fever')
     pg.mouse.set_visible(0)
 
+    background = pg.Surface(screen.get_size())
+    background = background.convert()
+    background.fill((250, 250, 250))
+
+    if pg.font:
+        font = pg.font.Font(None, 36)
+        text = font.render("Pummel The Chimp, And Win $$$", True, (10, 10, 10))
+        textpos = text.get_rect(centerx=background.get_width()/2)
+        background.blit(text, textpos)
+
+    screen.blit(background, (0, 0))
+    pg.display.flip()
+
+    whiff_sound = load_sound('whiff.wav')
+    punch_sound = load_sound('punch.wav')
+    chimp = Chimp()
+    fist = Fist()
+    allsprites = pg.sprite.RenderPlain((fist, chimp))
+    clock = pg.time.Clock()
+
 
 # this calls the 'main' function when this script is executed
 if __name__ == "__main__":
