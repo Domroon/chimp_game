@@ -35,3 +35,27 @@ def load_sound(name):
         print('Cannot load sound: ', fullname)
         raise SystemExit(message)
     return sound
+
+
+class Fist(pg.sprite.Sprite):
+    """moves a clenched fist on the screen, following the mouse"""
+    def __init__(self):
+        pg.sprite.Sprite.__init__(self)  # call Sprite initializer
+        self.image, self.rect = load_image('fist.jpg', -1)
+        self.punching = 0
+
+    def update(self):
+        """move the fist based on the mouse position"""
+        pos = pg.mouse.get_pos()
+        self.rect.midtop = pos
+
+    def punch(self, target):
+        """returns true if the fist collide with the target"""
+        if not self.punching:
+            self.punching = 1
+            hitbox = self.rect.inflate(-5, -5)
+            return hitbox.colliderect(target.rect)
+
+    def unpunch(self):
+        """called to pull the fist back"""
+        self.punching = 0
