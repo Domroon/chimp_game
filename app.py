@@ -133,12 +133,15 @@ def main():
     screen.blit(background, (0, 0))
     pg.display.flip()
 
-    whiff_sound = load_sound('whiff.wav')
-    punch_sound = load_sound('punch.wav')
+    # whiff_sound = load_sound('whiff.wav')
+    # punch_sound = load_sound('punch.wav')
     chimp = Chimp()
     fist = Fist()
     allsprites = pg.sprite.RenderPlain((fist, chimp))
     clock = pg.time.Clock()
+
+    while 1:
+        clock.tick(60)
 
 
 # this calls the 'main' function when this script is executed
