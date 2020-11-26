@@ -21,3 +21,17 @@ def load_image(name, colorkey=None):
             colorkey = image.get_at((0, 0))
         image.set_colorkey(colorkey, RLEACCEL)
     return image, image.get_rect()
+
+
+def load_sound(name):
+    class NoneSound:
+        def play(self): pass
+    if not pg.mixer:
+        return NoneSound()
+    fullname = os.path.join('data', name)
+    try:
+        sound = pg.mixer.Sound(fullname)
+    except pg.error as message:
+        print('Cannot load sound: ', fullname)
+        raise SystemExit(message)
+    return sound
