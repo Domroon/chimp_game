@@ -116,7 +116,7 @@ def main():
        a loop until the function returns."""
     # Initialize Everything
     pg.init()
-    screen = pg.display.set_mode((468, 60))
+    screen = pg.display.set_mode((936, 240))
     pg.display.set_caption('Monkey Fever')
     pg.mouse.set_visible(0)
 
@@ -146,6 +146,22 @@ def main():
         for event in pg.event.get():
             if event.type == QUIT:
                 return
+            elif event.type == KEYDOWN and event.key == K_ESCAPE:
+                return
+            elif event.type == MOUSEBUTTONDOWN:
+                if fist.punch(chimp):
+                    punch_sound.play()  # punch
+                    chimp.punched()
+                else:
+                    whiff_sound.play()  # miss
+            elif event.type == MOUSEBUTTONUP:
+                fist.unpunch()
+
+        allsprites.update()
+
+        screen.blit(background, (0, 0))
+        allsprites.draw(screen)
+        pg.display.flip()
 
 
 # this calls the 'main' function when this script is executed
