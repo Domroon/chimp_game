@@ -9,9 +9,9 @@ if not pg.mixer:
 
 
 def load_image(name, colorkey=None):
-    fullname = os.path.join('data', name)
+    # fullname = os.path.join('data', name)
     try:
-        image = pg.image.load(fullname)
+        image = pg.image.load(name)
     except pg.error as message:
         print('Cannot load image: ', name)
         raise SystemExit(message)
@@ -28,11 +28,11 @@ def load_sound(name):
         def play(self): pass
     if not pg.mixer:
         return NoneSound()
-    fullname = os.path.join('data', name)
+    # fullname = os.path.join('data', name)
     try:
-        sound = pg.mixer.Sound(fullname)
+        sound = pg.mixer.Sound(name)
     except pg.error as message:
-        print('Cannot load sound: ', fullname)
+        print('Cannot load sound: ', name)
         raise SystemExit(message)
     return sound
 
@@ -41,7 +41,7 @@ class Fist(pg.sprite.Sprite):
     """moves a clenched fist on the screen, following the mouse"""
     def __init__(self):
         pg.sprite.Sprite.__init__(self)  # call Sprite initializer
-        self.image, self.rect = load_image('fist.jpg', -1)
+        self.image, self.rect = load_image('C:/Users/haeus/workspace/chimp_game/data/fist.jpg', -1)
         self.punching = 0
 
     def update(self):
@@ -66,7 +66,7 @@ class Chimp(pg.sprite.Sprite):
        monkey when it is punched"""
     def __init__(self):
         pg.sprite.Sprite.__init__(self)  # call the Sprite initializer
-        self.image, self.rect = load_image('chimp.jpg', -1)
+        self.image, self.rect = load_image('C:/Users/haeus/workspace/chimp_game/data/chimp.jpg', -1)
         screen = pg.display.get_surface()
         self.area = screen.get_rect()
         self.rect.topleft = 10, 10
@@ -133,8 +133,8 @@ def main():
     screen.blit(background, (0, 0))
     pg.display.flip()
 
-    # whiff_sound = load_sound('whiff.wav')
-    # punch_sound = load_sound('punch.wav')
+    whiff_sound = load_sound('C:/Users/haeus/workspace/chimp_game/data/whiff.wav')
+    punch_sound = load_sound('C:/Users/haeus/workspace/chimp_game/data/punch.wav')
     chimp = Chimp()
     fist = Fist()
     allsprites = pg.sprite.RenderPlain((fist, chimp))
@@ -142,6 +142,10 @@ def main():
 
     while 1:
         clock.tick(60)
+
+        for event in pg.event.get():
+            if event.type == QUIT:
+                return
 
 
 # this calls the 'main' function when this script is executed
